@@ -1,3 +1,9 @@
+## This repo contain fix for following Winafl issue:
+```
+[-]  SYSTEM ERROR : Unable to create 'output\.cur_input'
+    Stop location : write_to_testcase(), C:\Users\User\winafl\afl-fuzz.c:2988
+       OS message : Permission denied
+```
 # WinAFL
 
 ```
