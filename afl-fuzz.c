@@ -2982,11 +2982,29 @@ static void write_to_testcase(void* mem, u32 len) {
 
     if (fd < 0) {
       destroy_target_process(0);
-      
-	  fd = open(out_file, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, DEFAULT_PERMISSION);
-		
-      if (fd < 0) PFATAL("Unable to create '%s'", out_file);
-
+      int increment_filename = 1;
+      char str_inc[2]; 
+      while (1) {
+	    fd = open(out_file, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, DEFAULT_PERMISSION);
+  
+      if (fd < 0) 
+      {
+        if (increment_filename >= 100)
+        {
+          increment_filename = 1;
+        }
+        //PFATAL("Unable to create '%s'", out_file);
+        //out_file = 
+        sprintf(str_inc, "%d", increment_filename);
+        increment_filename = increment_filename + 1;
+        out_file = alloc_printf("%s\\.cur_input%s", out_dir,str_inc);
+        //printf("changed filename to %s", out_file);
+      }
+      else
+      {
+        break;
+      }
+    }
 	}
 
   } else lseek(fd, 0, SEEK_SET);
